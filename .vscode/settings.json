@@ -1,0 +1,9 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\gluegen-rt.jar",
+    "c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\gluegen-rt-natives-windows-amd64.jar",
+    "c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\jogl-all.jar",
+    "c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\jogl-all-natives-windows-amd64.jar"
+  ]
+}
