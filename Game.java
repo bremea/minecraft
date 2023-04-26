@@ -1,11 +1,14 @@
+import org.joml.Matrix4f;
+
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.glu.GLU;
-import com.jogamp.opengl.math.Quaternion;
 
 public class Game implements GLEventListener {
 	InputManager inputManager;
 	GLU glu = new GLU();
 	Renderer render;
+	World world;
+	Matrix4f cam;
 
 	private static final float ZERO_F = 0.0f;
 	private static final float ONE_F = 1.0f;
@@ -13,6 +16,9 @@ public class Game implements GLEventListener {
 	public Game(InputManager inputManager) {
 		this.inputManager = inputManager;
 		render = new Renderer();
+		world = new World();
+		cam = new Matrix4f();
+		world.genRand();
 	}
 
 	@Override
@@ -24,10 +30,13 @@ public class Game implements GLEventListener {
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
 
-		gl.glRotatef(inputManager.getYaw(), ONE_F, ZERO_F, ZERO_F);
-		gl.glRotatef(inputManager.getPitch(), ZERO_F, ONE_F, ZERO_F);
+		cam.setRotationXYZ((float) Math.toRadians(inputManager.getPitch()), (float) Math.toRadians(inputManager.getYaw()), 0f);
+
+		float[] matrix = new float[16];
+		cam.get(matrix);
+		gl.glMultMatrixf(matrix, 0);
 		gl.glTranslatef(inputManager.getX(), inputManager.getY(), inputManager.getZ());
-		render.renderWorld(inputManager, drawable);
+		render.renderWorld(inputManager, drawable, world);
 	}
 
 	@Override

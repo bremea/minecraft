@@ -1,9 +1,14 @@
 {
   "java.project.referencedLibraries": [
-    "lib/**/*.jar",
-    "c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\gluegen-rt.jar",
-    "c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\gluegen-rt-natives-windows-amd64.jar",
-    "c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\jogl-all.jar",
-    "c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\jogl-all-natives-windows-amd64.jar"
-  ]
+	"lib/**/*.jar",
+	"c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\gluegen-rt.jar",
+	"c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\gluegen-rt-natives-windows-amd64.jar",
+	"c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\jogl-all.jar",
+	"c:\\Users\\bremea\\Downloads\\jogamp-all-platforms\\jar\\jogl-all-natives-windows-amd64.jar",
+	"/Users/bremea/Desktop/jogamp-all-platforms/jar/gluegen-rt-natives-macosx-universal.jar",
+	"/Users/bremea/Desktop/jogamp-all-platforms/jar/gluegen-rt.jar",
+	"/Users/bremea/Desktop/jogamp-all-platforms/jar/jogl-all-natives-macosx-universal.jar",
+	"/Users/bremea/Desktop/jogamp-all-platforms/jar/jogl-all.jar",
+	"/Users/bremea/Desktop/joml-1.10.5.jar"
+]
 }

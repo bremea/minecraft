@@ -1,13 +1,19 @@
 {
-	"configurations": [
-		{
-			"type": "java",
-			"name": "Main",
-			"request": "launch",
-			"mainClass": "Main",
-			"projectName": "minecraft_267a409e",
-			"vmArgs": "-Dsun.awt.noerasebackground=true --add-exports java.base/java.lang=ALL-UNNAMED --add-exports java.desktop/sun.awt=ALL-UNNAMED --add-exports java.desktop/sun.java2d=ALL-UNNAMED",
-
-		}
-	]
+  "configurations": [
+	{
+		"type": "java",
+		"name": "Main",
+		"request": "launch",
+		"mainClass": "Main",
+		"projectName": "minecraft_5c1593d5"
+	},
+	{
+		"type": "java",
+		"name": "Main",
+		"request": "launch",
+		"mainClass": "Main",
+		"projectName": "minecraft_267a409e",
+		"vmArgs": "--add-exports java.base/java.lang=ALL-UNNAMED --add-exports java.desktop/sun.awt=ALL-UNNAMED --add-exports java.desktop/sun.java2d=ALL-UNNAMED -Dsun.awt.noerasebackground=true"
+	}
+]
 }

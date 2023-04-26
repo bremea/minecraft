@@ -10,7 +10,7 @@ public class Mouse extends MouseInputAdapter {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getButton() == 0) {
+		if (e.getButton() == MouseEvent.BUTTON1) {
 			System.out.println("clicked");
 		}
 	}

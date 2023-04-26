@@ -18,23 +18,26 @@ public class Main {
 	public final static int height = 1000;
 
 	public static void main(String[] args) throws AWTException {
+		frame = new JFrame("not minecraft");
+
 		profile = GLProfile.get(GLProfile.GL2);
 		capabilities = new GLCapabilities(profile);
 		canvas = new GLCanvas(capabilities);
 
-		inputManager = new InputManager(0.1f, width, height);
+		inputManager = new InputManager(0.1f, frame);
 
 		Game game = new Game(inputManager);
 		canvas.addGLEventListener(game);
 		canvas.setSize(width, height);
 
-		frame = new JFrame("not minecraft");
 		frame.getContentPane().add(canvas);
 		frame.setSize(frame.getContentPane().getPreferredSize());
+		frame.setLocation(0, 0);
 		frame.setVisible(true);
 		canvas.addMouseMotionListener(new Mouse(inputManager));
-		frame.addKeyListener(new Keyboard(inputManager));
 		frame.addWindowListener(new FocusListener(inputManager));
+
+		inputManager.initKeyboard(frame);
 		
 		animator = new FPSAnimator(60);
 		animator.add(canvas);
