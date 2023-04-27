@@ -3,6 +3,8 @@ import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 
 import java.awt.AWTException;
+import java.awt.Point;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
@@ -36,9 +38,12 @@ public class Main {
 		frame.setVisible(true);
 		canvas.addMouseMotionListener(new Mouse(inputManager));
 		frame.addWindowListener(new FocusListener(inputManager));
+		frame.setCursor(frame.getToolkit().createCustomCursor(
+				new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
+				"null"));
 
 		inputManager.initKeyboard(frame);
-		
+
 		animator = new FPSAnimator(60);
 		animator.add(canvas);
 		animator.start();

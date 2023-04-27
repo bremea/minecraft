@@ -86,6 +86,8 @@ public class InputManager {
 		mouseXDelta = (int) (mouseX - prevMouseX);
 		mouseYDelta = (int) (mouseY - prevMouseY);
 
+		System.out.println(mouseXDelta + ", " + mouseYDelta);
+
 		pitch += mouseYDelta * sensitivity;
 		yaw += mouseXDelta * sensitivity;
 
@@ -105,21 +107,23 @@ public class InputManager {
 		for (int key : keysPressed) {
 			switch (key) {
 				case 87: { // W
-					z += .33f * Math.sin(Math.abs(yaw));
-					x += .33f * Math.cos(Math.abs(yaw));
+					z += .33f * Math.cos(yaw / 57.2958);
+					x += .33f * Math.sin(yaw / 57.2958);
 					break;
 				}
 				case 83: { // S
-					z -= .33f * Math.sin(Math.abs(yaw));
-					x -= .33f * Math.cos(Math.abs(yaw));
+					z -= .33f * Math.cos(yaw / 57.2958);
+					x -= .33f * Math.sin(yaw / 57.2958);
 					break;
 				}
 				case 65: { // A
-					x += .33f;
+					z += .33f * Math.cos(yaw / 57.2958);
+					x += .33f * Math.sin(yaw / 57.2958);
 					break;
 				}
 				case 68: { // D
-					x -= .33f;
+					z -= .33f * Math.cos(yaw / 57.2958);
+					x -= .33f * Math.sin(yaw / 57.2958);
 					break;
 				}
 				case 32: { // SPACE
