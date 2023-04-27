@@ -28,7 +28,7 @@ public class Main {
 
 		camera = new Camera(0.1f, frame);
 
-		Game game = new Game(camera);
+		Game game = new Game(camera, profile);
 		canvas.addGLEventListener(game);
 		canvas.setSize(width, height);
 

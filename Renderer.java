@@ -1,12 +1,12 @@
-import java.util.ArrayList;
-
 import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.util.texture.TextureData;
 
 import Rendering.Block;
 
 public class Renderer {
-	public void renderWorld(Camera camera, GLAutoDrawable drawable, World world) {
+	public void renderWorld(Camera camera, GLAutoDrawable drawable, World world, TextureData textures) {
 		int[][][] blockData = world.getBlockData();
+		
 		for (int x = 0; x < blockData.length; x++) {
 			for (int y = 0; y < blockData[x].length; y++) {
 				for (int z = 0; z < blockData[x][y].length; z++) {

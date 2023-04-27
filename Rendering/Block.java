@@ -1,10 +1,16 @@
 package Rendering;
 
+import java.nio.IntBuffer;
+
 import com.jogamp.opengl.*;
 
 public class Block {
 	private static final float ZERO_F = 0.0f;
 	private static final float ONE_F = 0.5f;
+	public static final int TILE_W = 16;
+	public static final int TILE_H = 16;
+
+	IntBuffer textureIDs;
 
 	float x;
 	float y;
@@ -16,7 +22,7 @@ public class Block {
 		this.z = z;
 	}
 
-	public void render(GLAutoDrawable drawable, boolean[] borders) {
+	public void render(GLAutoDrawable drawable, boolean[] borders, ) {
 		final GL2 gl = drawable.getGL().getGL2();
 
 		drawCube(gl, borders);
