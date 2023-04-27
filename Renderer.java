@@ -30,7 +30,7 @@ public class Renderer {
 						if (z < 15) {
 							borders[4] = blockData[x][y][z + 1] != 0;
 						}
-						new Block(x * 2, y * 2, z * 2).render(drawable, borders);
+						new Block(x, y, z).render(drawable, borders);
 					}
 				}
 			}

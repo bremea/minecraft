@@ -29,9 +29,9 @@ public class Game implements GLEventListener {
 		camera.refresh();
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
+		gl.glEnable(GL.GL_CULL_FACE);
 
 		cam.setRotationXYZ((float) Math.toRadians(camera.getPitch()), (float) Math.toRadians(camera.getYaw()), 0f);
-
 		float[] matrix = new float[16];
 		cam.get(matrix);
 		gl.glMultMatrixf(matrix, 0);

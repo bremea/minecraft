@@ -4,7 +4,7 @@ import com.jogamp.opengl.*;
 
 public class Block {
 	private static final float ZERO_F = 0.0f;
-	private static final float ONE_F = 1.0f;
+	private static final float ONE_F = 0.5f;
 
 	float x;
 	float y;
