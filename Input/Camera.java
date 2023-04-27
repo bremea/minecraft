@@ -86,8 +86,6 @@ public class Camera {
 		mouseXDelta = (int) (mouseX - prevMouseX);
 		mouseYDelta = (int) (mouseY - prevMouseY);
 
-		System.out.println(mouseXDelta + ", " + mouseYDelta);
-
 		pitch += mouseYDelta * sensitivity;
 		yaw += mouseXDelta * sensitivity;
 
