@@ -108,22 +108,22 @@ public class InputManager {
 			switch (key) {
 				case 87: { // W
 					z += .33f * Math.cos(yaw / 57.2958);
-					x += .33f * Math.sin(yaw / 57.2958);
+					x -= .33f * Math.sin(yaw / 57.2958);
 					break;
 				}
 				case 83: { // S
 					z -= .33f * Math.cos(yaw / 57.2958);
-					x -= .33f * Math.sin(yaw / 57.2958);
-					break;
-				}
-				case 65: { // A
-					z += .33f * Math.cos(yaw / 57.2958);
 					x += .33f * Math.sin(yaw / 57.2958);
 					break;
 				}
+				case 65: { // A
+					z -= .33f * Math.cos((yaw + 90) / 57.2958);
+					x += .33f * Math.sin((yaw + 90) / 57.2958);
+					break;
+				}
 				case 68: { // D
-					z -= .33f * Math.cos(yaw / 57.2958);
-					x -= .33f * Math.sin(yaw / 57.2958);
+					z += .33f * Math.cos((yaw + 90) / 57.2958);
+					x -= .33f * Math.sin((yaw + 90) / 57.2958);
 					break;
 				}
 				case 32: { // SPACE
