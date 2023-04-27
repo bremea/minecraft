@@ -5,7 +5,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 import Rendering.Block;
 
 public class Renderer {
-	public void renderWorld(InputManager inputManager, GLAutoDrawable drawable, World world) {
+	public void renderWorld(Camera camera, GLAutoDrawable drawable, World world) {
 		int[][][] blockData = world.getBlockData();
 		for (int x = 0; x < blockData.length; x++) {
 			for (int y = 0; y < blockData[x].length; y++) {

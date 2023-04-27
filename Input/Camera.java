@@ -9,7 +9,7 @@ import javax.swing.KeyStroke;
 
 import com.jogamp.newt.event.KeyEvent;
 
-public class InputManager {
+public class Camera {
 	float x;
 	float y;
 	float z;
@@ -52,7 +52,7 @@ public class InputManager {
 	public final static int MARGIN = 10;
 	public final static float EDGE_STEP = 1.0f;
 
-	public InputManager(float sensitivity, JFrame frame) throws AWTException {
+	public Camera(float sensitivity, JFrame frame) throws AWTException {
 		super();
 		pitch = 0f;
 		yaw = 0f;

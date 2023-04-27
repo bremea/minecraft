@@ -2,10 +2,10 @@ import java.awt.event.*;
 import javax.swing.event.MouseInputAdapter;
 
 public class Mouse extends MouseInputAdapter {
-	InputManager inputManager;
+	Camera camera;
 
-	Mouse(InputManager inputManager) {
-		this.inputManager = inputManager;
+	Mouse(Camera camera) {
+		this.camera = camera;
 	}
 
 	@Override
@@ -20,6 +20,6 @@ public class Mouse extends MouseInputAdapter {
 		float x = (float) e.getX();
 		float y = (float) e.getY();
 		
-		inputManager.updateMouse(x, y);
+		camera.updateMouse(x, y);
 	}
 }

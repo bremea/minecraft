@@ -2,12 +2,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 public class Keyboard extends AbstractAction {
-	InputManager inputManager;
+	Camera camera;
 	boolean pressed;
 	int keyCode;
 
-	Keyboard(InputManager inputManager, boolean pressed, int keyCode) {
-		this.inputManager = inputManager;
+	Keyboard(Camera camera, boolean pressed, int keyCode) {
+		this.camera = camera;
 		this.pressed = pressed;
 		this.keyCode = keyCode;
 	}
@@ -15,9 +15,9 @@ public class Keyboard extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (pressed) {
-			inputManager.addKeyPressed(keyCode);
+			camera.addKeyPressed(keyCode);
 		} else {
-			inputManager.removeKeyPressed(keyCode);
+			camera.removeKeyPressed(keyCode);
 		}
 	}
 }

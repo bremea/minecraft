@@ -14,7 +14,7 @@ public class Main {
 	static GLProfile profile;
 	static FPSAnimator animator;
 	static JFrame frame;
-	static InputManager inputManager;
+	static Camera camera;
 
 	public final static int width = 1000;
 	public final static int height = 1000;
@@ -26,9 +26,9 @@ public class Main {
 		capabilities = new GLCapabilities(profile);
 		canvas = new GLCanvas(capabilities);
 
-		inputManager = new InputManager(0.1f, frame);
+		camera = new Camera(0.1f, frame);
 
-		Game game = new Game(inputManager);
+		Game game = new Game(camera);
 		canvas.addGLEventListener(game);
 		canvas.setSize(width, height);
 
@@ -36,13 +36,13 @@ public class Main {
 		frame.setSize(frame.getContentPane().getPreferredSize());
 		frame.setLocation(0, 0);
 		frame.setVisible(true);
-		canvas.addMouseMotionListener(new Mouse(inputManager));
-		frame.addWindowListener(new FocusListener(inputManager));
+		canvas.addMouseMotionListener(new Mouse(camera));
+		frame.addWindowListener(new FocusListener(camera));
 		frame.setCursor(frame.getToolkit().createCustomCursor(
 				new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
 				"null"));
 
-		inputManager.initKeyboard(frame);
+		camera.initKeyboard(frame);
 
 		animator = new FPSAnimator(60);
 		animator.add(canvas);

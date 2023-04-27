@@ -4,7 +4,7 @@ import com.jogamp.opengl.*;
 import com.jogamp.opengl.glu.GLU;
 
 public class Game implements GLEventListener {
-	InputManager inputManager;
+	Camera camera;
 	GLU glu = new GLU();
 	Renderer render;
 	World world;
@@ -13,8 +13,8 @@ public class Game implements GLEventListener {
 	private static final float ZERO_F = 0.0f;
 	private static final float ONE_F = 1.0f;
 
-	public Game(InputManager inputManager) {
-		this.inputManager = inputManager;
+	public Game(Camera camera) {
+		this.camera = camera;
 		render = new Renderer();
 		world = new World();
 		cam = new Matrix4f();
@@ -26,17 +26,17 @@ public class Game implements GLEventListener {
 		// ! game loop, update then render
 		final GL2 gl = drawable.getGL().getGL2();
 
-		inputManager.refresh();
+		camera.refresh();
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
 
-		cam.setRotationXYZ((float) Math.toRadians(inputManager.getPitch()), (float) Math.toRadians(inputManager.getYaw()), 0f);
+		cam.setRotationXYZ((float) Math.toRadians(camera.getPitch()), (float) Math.toRadians(camera.getYaw()), 0f);
 
 		float[] matrix = new float[16];
 		cam.get(matrix);
 		gl.glMultMatrixf(matrix, 0);
-		gl.glTranslatef(inputManager.getX(), inputManager.getY(), inputManager.getZ());
-		render.renderWorld(inputManager, drawable, world);
+		gl.glTranslatef(camera.getX(), camera.getY(), camera.getZ());
+		render.renderWorld(camera, drawable, world);
 	}
 
 	@Override

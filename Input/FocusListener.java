@@ -2,45 +2,45 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class FocusListener implements WindowListener {
-	InputManager inputManager;
+	Camera camera;
 
-	public FocusListener(InputManager inputManager) {
-		this.inputManager = inputManager;
+	public FocusListener(Camera camera) {
+		this.camera = camera;
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-		inputManager.setWindowFocus(false);
+		camera.setWindowFocus(false);
 	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		inputManager.setWindowFocus(true);
+		camera.setWindowFocus(true);
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		inputManager.setWindowFocus(false);
+		camera.setWindowFocus(false);
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		inputManager.setWindowFocus(false);
+		camera.setWindowFocus(false);
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
-		inputManager.setWindowFocus(false);
+		camera.setWindowFocus(false);
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-		inputManager.setWindowFocus(true);
+		camera.setWindowFocus(true);
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		inputManager.setWindowFocus(true);
+		camera.setWindowFocus(true);
 	}
 
 }
