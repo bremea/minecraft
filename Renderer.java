@@ -1,11 +1,16 @@
+import java.nio.IntBuffer;
+
+import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.util.texture.TextureData;
+import com.jogamp.opengl.util.texture.Texture;
 
 import Rendering.Block;
+import Shaders.Shader;
 
 public class Renderer {
-	public void renderWorld(Camera camera, GLAutoDrawable drawable, World world, TextureData textures) {
+	public void renderWorld(Camera camera, GLAutoDrawable drawable, World world, Texture atlas, Shader shader) {
 		int[][][] blockData = world.getBlockData();
+
 		
 		for (int x = 0; x < blockData.length; x++) {
 			for (int y = 0; y < blockData[x].length; y++) {
@@ -30,7 +35,7 @@ public class Renderer {
 						if (z < 15) {
 							borders[4] = blockData[x][y][z + 1] != 0;
 						}
-						new Block(x, y, z).render(drawable, borders);
+						new Block(x, y, z, atlas).render(drawable, borders);
 					}
 				}
 			}
