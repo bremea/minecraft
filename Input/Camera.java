@@ -162,7 +162,6 @@ public class Camera {
 			}
 		}
 		int[] target = new int[] { Math.round(pos.x), Math.round(pos.y), Math.round(pos.z) };
-		System.out.println(target[0] + ","+ target[1] + ","+target[2]);
 		return target;
 	}
 
