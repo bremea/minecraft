@@ -44,7 +44,7 @@ public class Block {
 		int tileID = 0;
 
 		float MAX = 1f;
-		float MIN = -1f;
+		float MIN = .75f;
 
 		gl.glColor3f(1.0f, 1.0f, 1.0f); 
 		if (!borders[3]) {
@@ -59,37 +59,57 @@ public class Block {
 		}
 
 		if (!borders[2]) {
+			gl.glTexCoord2f(MAX, MAX);
 			gl.glVertex3f(x + ONE_F, y + -ONE_F, z + ONE_F);
+			gl.glTexCoord2f(MIN, MAX);
 			gl.glVertex3f(x + -ONE_F, y + -ONE_F, z + ONE_F);
+			gl.glTexCoord2f(MIN, MIN);
 			gl.glVertex3f(x + -ONE_F, y + -ONE_F, z + -ONE_F);
+			gl.glTexCoord2f(MAX, MIN);
 			gl.glVertex3f(x + ONE_F, y + -ONE_F, z + -ONE_F);
 		}
 
 		if (!borders[4]) {
+			gl.glTexCoord2f(MAX, MAX);
 			gl.glVertex3f(x + ONE_F, y + ONE_F, z + ONE_F);
+			gl.glTexCoord2f(MIN, MAX);
 			gl.glVertex3f(x + -ONE_F, y + ONE_F, z + ONE_F);
+			gl.glTexCoord2f(MIN, MIN);
 			gl.glVertex3f(x + -ONE_F, y + -ONE_F, z + ONE_F);
+			gl.glTexCoord2f(MAX, MIN);
 			gl.glVertex3f(x + ONE_F, y + -ONE_F, z + ONE_F);
 		}
 
 		if (!borders[5]) {
+			gl.glTexCoord2f(MAX, MAX);
 			gl.glVertex3f(x + ONE_F, y + -ONE_F, z + -ONE_F);
+			gl.glTexCoord2f(MIN, MAX);
 			gl.glVertex3f(x + -ONE_F, y + -ONE_F, z + -ONE_F);
+			gl.glTexCoord2f(MIN, MIN);
 			gl.glVertex3f(x + -ONE_F, y + ONE_F, z + -ONE_F);
+			gl.glTexCoord2f(MAX, MIN);
 			gl.glVertex3f(x + ONE_F, y + ONE_F, z + -ONE_F);
 		}
 
 		if (!borders[0]) {
+			gl.glTexCoord2f(MAX, MAX);
 			gl.glVertex3f(x + -ONE_F, y + ONE_F, z + ONE_F);
+			gl.glTexCoord2f(MIN, MAX);
 			gl.glVertex3f(x + -ONE_F, y + ONE_F, z + -ONE_F);
+			gl.glTexCoord2f(MIN, MIN);
 			gl.glVertex3f(x + -ONE_F, y + -ONE_F, z + -ONE_F);
+			gl.glTexCoord2f(MAX, MIN);
 			gl.glVertex3f(x + -ONE_F, y + -ONE_F, z + ONE_F);
 		}
 
 		if (!borders[1]) {
+			gl.glTexCoord2f(MAX, MAX);
 			gl.glVertex3f(x + ONE_F, y + ONE_F, z + -ONE_F);
+			gl.glTexCoord2f(MIN, MAX);
 			gl.glVertex3f(x + ONE_F, y + ONE_F, z + ONE_F);
+			gl.glTexCoord2f(MIN, MIN);
 			gl.glVertex3f(x + ONE_F, y + -ONE_F, z + ONE_F);
+			gl.glTexCoord2f(MAX, MIN);
 			gl.glVertex3f(x + ONE_F, y + -ONE_F, z + -ONE_F);
 		}
 
