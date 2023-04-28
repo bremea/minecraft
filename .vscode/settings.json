@@ -10,6 +10,8 @@
 	"/Users/bremea/Desktop/jogamp-all-platforms/jar/jogl-all-natives-macosx-universal.jar",
 	"/Users/bremea/Desktop/jogamp-all-platforms/jar/jogl-all.jar",
 	"/Users/bremea/Desktop/joml-1.10.5.jar",
-	"c:\\Users\\bremea\\Downloads\\joml-1.10.5.jar"
+	"c:\\Users\\bremea\\Downloads\\joml-1.10.5.jar",
+	"/Users/bremea/Desktop/jogamp-all-platforms/jar/jogl-all-natives-windows-amd64.jar",
+	"/Users/bremea/Desktop/jogamp-all-platforms/jar/gluegen-rt-natives-windows-amd64.jar"
 ]
 }

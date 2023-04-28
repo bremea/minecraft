@@ -37,6 +37,7 @@ public class Main {
 		frame.setLocation(0, 0);
 		frame.setVisible(true);
 		canvas.addMouseMotionListener(new Mouse(camera));
+		canvas.addMouseListener(new Mouse(camera));
 		frame.addWindowListener(new FocusListener(camera));
 		frame.setCursor(frame.getToolkit().createCustomCursor(
 				new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),

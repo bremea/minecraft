@@ -9,9 +9,24 @@ public class Mouse extends MouseInputAdapter {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
-			System.out.println("clicked");
+			camera.setLeftClickDown(true);
+		}
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			camera.setRightClickDown(true);
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			camera.setLeftClickDown(false);
+			camera.setAlreadyPlaced(false);
+		}
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			camera.setRightClickDown(false);
+			camera.setAlreadyPlaced(false);
 		}
 	}
 
@@ -19,7 +34,7 @@ public class Mouse extends MouseInputAdapter {
 	public void mouseMoved(MouseEvent e) {
 		float x = (float) e.getX();
 		float y = (float) e.getY();
-		
+
 		camera.updateMouse(x, y);
 	}
 }

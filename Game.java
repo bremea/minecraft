@@ -1,11 +1,5 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 import org.joml.Matrix4f;
 
@@ -44,7 +38,7 @@ public class Game implements GLEventListener {
 		render = new Renderer();
 		world = new World();
 		cam = new Matrix4f();
-		// world.genRand();
+		world.genFlat();
 	}
 
 	@Override
@@ -56,6 +50,7 @@ public class Game implements GLEventListener {
 		camera.refresh();
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
+
 		gl.glActiveTexture(GL2.GL_TEXTURE0);
 		gl.glEnable(GL2.GL_TEXTURE_2D); // ! no more colors
 
@@ -64,7 +59,17 @@ public class Game implements GLEventListener {
 		cam.get(matrix);
 		gl.glMultMatrixf(matrix, 0);
 		gl.glTranslatef(camera.getX(), camera.getY(), camera.getZ());
-		render.renderWorld(camera, drawable, world, atlas, shader);
+		int[] lookingAt = camera.raycast(world);
+
+		if (camera.leftClickDown() && !camera.getAlreadyPlaced()) {
+			world.removeBlock(lookingAt);
+			camera.setAlreadyPlaced(true);
+		} else if (camera.rightClickDown() && !camera.getAlreadyPlaced()) {
+			world.addBlock(lookingAt);
+			camera.setAlreadyPlaced(true);
+		}
+
+		render.renderWorld(camera, drawable, world, atlas, shader, lookingAt);
 		gl.glDisable(GL2.GL_TEXTURE_2D);
 	}
 
@@ -77,14 +82,15 @@ public class Game implements GLEventListener {
 	public void init(GLAutoDrawable drawable) {
 		final GL2 gl = drawable.getGL().getGL2();
 		gl.glShadeModel(GL2.GL_SMOOTH);
-		gl.glActiveTexture(GL2.GL_TEXTURE0);
-		gl.glClearColor(ZERO_F, ZERO_F, ZERO_F, ZERO_F);
+		gl.glClearColor(0.459f, 0.698f, ONE_F, ONE_F);
 		gl.glClearDepth(ONE_F);
 		gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
 		gl.glEnable(GL2.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL2.GL_LEQUAL);
 		gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
 		gl.glEnable(GL.GL_CULL_FACE);
+		gl.glEnable(GL2.GL_TEXTURE_2D); // ! no more colors
+		gl.glActiveTexture(GL2.GL_TEXTURE0);
 
 		try {
 			textureData = TextureIO.newTextureData(profile,
@@ -102,7 +108,6 @@ public class Game implements GLEventListener {
 		atlas.setTexParameteri(gl, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_NEAREST);
 		atlas.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_S, GL2.GL_CLAMP_TO_EDGE);
 		atlas.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_T, GL2.GL_CLAMP_TO_EDGE);
-		atlas.setTexParameteri(gl, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_REPLACE);
 	}
 
 	@Override
