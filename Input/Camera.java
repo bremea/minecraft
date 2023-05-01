@@ -49,12 +49,14 @@ public class Camera {
 	boolean rightClickDown;
 	Robot robot;
 	boolean alreadyPlaced;
+	int activeBlock;
 
 	public final static String KEY_W = "KEY_W";
 	public final static String KEY_S = "KEY_S";
 	public final static String KEY_A = "KEY_A";
 	public final static String KEY_D = "KEY_D";
 	public final static String KEY_SPACE = "KEY_SPACE";
+	public final static String ALPHANUM_KEY = "ALPHANUM";
 	public final static String KEY_SHIFT = "KEY_SHIFT";
 	public final static int MARGIN = 10;
 	public final static float EDGE_STEP = 1.0f;
@@ -80,6 +82,7 @@ public class Camera {
 		movedMouseInit = false;
 		leftClickDown = false;
 		rightClickDown = false;
+		activeBlock = 1;
 	}
 
 	public void updateMouse(float x, float y) {
@@ -114,6 +117,10 @@ public class Camera {
 		}
 
 		for (int key : keysPressed) {
+			if (key > 48 && key < 58) {
+				System.out.println("switching to " + (key - 48));
+				activeBlock = key - 48;
+			}
 			switch (key) {
 				case 87: { // W
 					z += .33f * Math.cos(yaw / 57.2958);
@@ -147,26 +154,29 @@ public class Camera {
 		}
 	}
 
-	public int[] raycast(World world) {
-		float rx = (float) (Math.cos(pitch / 57.2958) * Math.cos(yaw / 57.2958));
-		float ry = (float) (Math.sin(pitch / 57.2958));
-		float rz = (float) (Math.cos(pitch / 57.2958) * Math.sin(yaw / 57.2958));
-		//! broken
-		Vector3f vdir = new Vector3f(0f, -2f, 0f);
+	public Vector3f[] raycast(World world) {
+		float rx = (float) (Math.cos(pitch / 57.2958) * Math.sin(yaw / 57.2958));
+		float ry = -1f * (float) (Math.sin(pitch / 57.2958));
+		float rz = -1f * (float) (Math.cos(pitch / 57.2958) * Math.cos(yaw / 57.2958));
+		// ! broken
+		Vector3f vdir = new Vector3f(rx, ry, rz);
 		vdir.normalize();
-		Vector3f pos = new Vector3f(Math.abs(x), Math.abs(y), Math.abs(z));
+		Vector3f pos = new Vector3f(-x, -y, -z);
 		for (int i = 0; i < RAYCAST_LIMIT; i++) {
 			pos = new Vector3f(vdir.x + pos.x, vdir.y + pos.y, vdir.z + pos.z);
 			if (world.testBlock(new int[] { Math.round(pos.x), Math.round(pos.y), Math.round(pos.z) })) {
 				i = RAYCAST_LIMIT;
 			}
 		}
-		int[] target = new int[] { Math.round(pos.x), Math.round(pos.y), Math.round(pos.z) };
-		return target;
+		return new Vector3f[] { pos, vdir };
 	}
 
 	public boolean leftClickDown() {
 		return leftClickDown;
+	}
+
+	public int getActiveBlock() {
+		return activeBlock;
 	}
 
 	public boolean rightClickDown() {
@@ -210,6 +220,7 @@ public class Camera {
 	}
 
 	synchronized public void addKeyPressed(int key) {
+		System.out.println(key);
 		keysPressed.add(key);
 	}
 
@@ -297,6 +308,16 @@ public class Camera {
 		frame.getRootPane().getActionMap().put(KEY_SPACE + "R", new Keyboard(this, true, 32));
 		frame.getRootPane().getActionMap().put(KEY_SHIFT + "R", new Keyboard(this, true, 16));
 
+		for (int nu = 49; nu < 58; nu++) {
+			frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+					KeyStroke.getKeyStroke(nu, 0, false),
+					ALPHANUM_KEY + (nu - 48) + "P");
+			frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+					KeyStroke.getKeyStroke(nu, 0, true),
+					ALPHANUM_KEY + (nu - 48) + "R");
+			frame.getRootPane().getActionMap().put(ALPHANUM_KEY + (nu - 48) + "P", new Keyboard(this, true, nu));
+			frame.getRootPane().getActionMap().put(ALPHANUM_KEY + (nu - 48) + "R", new Keyboard(this, false, nu));
+		}
 	}
 
 }

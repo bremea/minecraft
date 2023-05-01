@@ -2,6 +2,8 @@ package Rendering;
 
 import java.nio.IntBuffer;
 
+import org.joml.Vector3f;
+
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.util.texture.Texture;
 
@@ -17,6 +19,7 @@ public class Block {
 			{ 2, 2, 2, 2, 2, 2 }, // dirt
 			{ 3, 3, 3, 3, 3, 3 }, // stone
 			{ 4, 4, 4, 4, 4, 4 }, // wood
+			{ 5, 5, 5, 5, 5, 5 }, // glass
 	};
 
 	IntBuffer textureIDs;

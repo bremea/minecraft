@@ -1,5 +1,7 @@
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.joml.Vector3f;
+
 public class World {
 	int[][][] blockData;
 	int totalBlocks = 2;
@@ -18,11 +20,11 @@ public class World {
 		}
 	}
 
-	public void addBlock(int[] pos) {
+	public void addBlock(Vector3f posVec, int[] pos, int block) {
 		if (pos[0] >= 0 && pos[0] < blockData.length) {
 			if (pos[1] >= 0 && pos[1] < blockData[0].length) {
 				if (pos[2] >= 0 && pos[2] < blockData[1].length) {
-					blockData[pos[0]][pos[1] + 1][pos[2]] = 4;
+					blockData[(int) pos[0]][(int) pos[1] + 1][(int) pos[2]] = block;
 				}
 			}
 		}

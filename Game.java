@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.glu.GLU;
@@ -45,6 +46,7 @@ public class Game implements GLEventListener {
 	public void display(GLAutoDrawable drawable) {
 		// ! game loop, update then render
 		final GL2 gl = drawable.getGL().getGL2();
+		gl.glMatrixMode(GL2.GL_MODELVIEW);
 		// shader.use(gl);
 
 		camera.refresh();
@@ -53,24 +55,29 @@ public class Game implements GLEventListener {
 
 		gl.glActiveTexture(GL2.GL_TEXTURE0);
 		gl.glEnable(GL2.GL_TEXTURE_2D); // ! no more colors
+		gl.glEnable(GL2.GL_BLEND);
+		gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
 
 		cam.setRotationXYZ((float) Math.toRadians(camera.getPitch()), (float) Math.toRadians(camera.getYaw()), 0f);
 		float[] matrix = new float[16];
 		cam.get(matrix);
 		gl.glMultMatrixf(matrix, 0);
 		gl.glTranslatef(camera.getX(), camera.getY(), camera.getZ());
-		int[] lookingAt = camera.raycast(world);
+		Vector3f[] lookingAt = camera.raycast(world);
+		int[] laArr = new int[] { (int) Math.round(lookingAt[0].x), (int) Math.round(lookingAt[0].y),
+				(int) Math.round(lookingAt[0].z) };
 
 		if (camera.leftClickDown() && !camera.getAlreadyPlaced()) {
-			world.removeBlock(lookingAt);
+			world.removeBlock(laArr);
 			camera.setAlreadyPlaced(true);
 		} else if (camera.rightClickDown() && !camera.getAlreadyPlaced()) {
-			world.addBlock(lookingAt);
+			world.addBlock(lookingAt[0], laArr, camera.getActiveBlock());
 			camera.setAlreadyPlaced(true);
 		}
 
-		render.renderWorld(camera, drawable, world, atlas, shader, lookingAt);
+		render.renderWorld(camera, drawable, world, atlas, shader, lookingAt[0], lookingAt[1]);
 		gl.glDisable(GL2.GL_TEXTURE_2D);
+		gl.glPushMatrix();
 	}
 
 	@Override
