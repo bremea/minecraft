@@ -17,7 +17,11 @@ public class Keyboard extends AbstractAction {
 		if (pressed) {
 			camera.addKeyPressed(keyCode);
 		} else {
-			camera.removeKeyPressed(keyCode);
+			if (keyCode == 27) {
+				camera.toggleCursorLock();
+			} else {
+				camera.removeKeyPressed(keyCode);
+			}
 		}
 	}
 }

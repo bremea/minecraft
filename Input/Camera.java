@@ -1,5 +1,7 @@
 import java.awt.AWTException;
+import java.awt.Point;
 import java.awt.Robot;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -50,6 +52,7 @@ public class Camera {
 	Robot robot;
 	boolean alreadyPlaced;
 	int activeBlock;
+	boolean cursorLock;
 
 	public final static String KEY_W = "KEY_W";
 	public final static String KEY_S = "KEY_S";
@@ -58,6 +61,7 @@ public class Camera {
 	public final static String KEY_SPACE = "KEY_SPACE";
 	public final static String ALPHANUM_KEY = "ALPHANUM";
 	public final static String KEY_SHIFT = "KEY_SHIFT";
+	public final static String KEY_ESC = "KEY_ESC";
 	public final static int MARGIN = 10;
 	public final static float EDGE_STEP = 1.0f;
 	public final static int RAYCAST_LIMIT = 16;
@@ -70,6 +74,7 @@ public class Camera {
 		y = 0f;
 		z = 0f;
 		alreadyPlaced = false;
+		cursorLock = true;
 		mouseXDelta = 0f;
 		mouseYDelta = 0f;
 		this.sensitivity = sensitivity;
@@ -110,10 +115,11 @@ public class Camera {
 		prevMouseX = mouseX;
 		prevMouseY = mouseY;
 
-		if (windowInFocus && ((mouseXDelta != 0f || mouseYDelta != 0f) || (!movedMouseInit && canvasHeight > 0))) {
+		if (windowInFocus && ((mouseXDelta != 0f || mouseYDelta != 0f) || (!movedMouseInit && canvasHeight > 0))
+				&& cursorLock) {
 			movedMouseInit = true;
-			robot.mouseMove((int) (frame.getX() + (double) (frame.getWidth() - canvasWidth) + (double) canvasWidth / 2),
-					(int) (frame.getY() + (double) (frame.getHeight() - canvasHeight) + (double) canvasHeight / 2));
+			robot.mouseMove((int) (frame.getX() + (double) (frame.getInsets().left) + (double) canvasWidth / 2),
+					(int) (frame.getY() + (double) (frame.getInsets().top) + (double) canvasHeight / 2));
 		}
 
 		for (int key : keysPressed) {
@@ -183,6 +189,17 @@ public class Camera {
 		return rightClickDown;
 	}
 
+	public void toggleCursorLock() {
+		cursorLock = !cursorLock;
+		if (cursorLock) {
+			frame.setCursor(frame.getToolkit().createCustomCursor(
+					new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
+					"null"));
+		} else {
+			frame.setCursor(null);
+		}
+	}
+
 	public void setLeftClickDown(boolean val) {
 		leftClickDown = val;
 	}
@@ -220,7 +237,6 @@ public class Camera {
 	}
 
 	synchronized public void addKeyPressed(int key) {
-		System.out.println(key);
 		keysPressed.add(key);
 	}
 
@@ -294,6 +310,9 @@ public class Camera {
 		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke(16, KeyEvent.SHIFT_MASK, false),
 				KEY_SHIFT + "R");
+		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+				KeyStroke.getKeyStroke(27, 0, true),
+				KEY_ESC);
 
 		frame.getRootPane().getActionMap().put(KEY_W + "P", new Keyboard(this, false, 87));
 		frame.getRootPane().getActionMap().put(KEY_S + "P", new Keyboard(this, false, 83));
@@ -307,6 +326,7 @@ public class Camera {
 		frame.getRootPane().getActionMap().put(KEY_D + "R", new Keyboard(this, true, 68));
 		frame.getRootPane().getActionMap().put(KEY_SPACE + "R", new Keyboard(this, true, 32));
 		frame.getRootPane().getActionMap().put(KEY_SHIFT + "R", new Keyboard(this, true, 16));
+		frame.getRootPane().getActionMap().put(KEY_ESC, new Keyboard(this, false, 27));
 
 		for (int nu = 49; nu < 58; nu++) {
 			frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
